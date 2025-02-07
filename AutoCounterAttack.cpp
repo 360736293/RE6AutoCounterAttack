@@ -28,11 +28,13 @@ int main(){
     	printf("打开游戏进程失败");
     	return 0;
 	}
-	DWORD firstAddr = getFirstAddr(hProcess);
-	DWORD secondAddr = firstAddr + 0x780;
+	DWORD firstAddr;
+	DWORD secondAddr;
 	char autoCounterAttackFlag1; 
 	char autoCounterAttackFlag2;
 	while(true){
+		firstAddr = getFirstAddr(hProcess);
+		secondAddr = firstAddr + 0x780;
 		ReadProcessMemory(hProcess,(void *)firstAddr,&autoCounterAttackFlag1,1,NULL);
 		ReadProcessMemory(hProcess,(void *)secondAddr,&autoCounterAttackFlag2,1,NULL);
 		if(autoCounterAttackFlag1 == 5 || (autoCounterAttackFlag1 == 4 && autoCounterAttackFlag2 == 5)){
